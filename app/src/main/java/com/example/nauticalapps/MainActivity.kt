@@ -1,8 +1,10 @@
 package com.example.nauticalapps
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import java.util.Calendar
@@ -10,6 +12,7 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var tvDate: TextView
+    private lateinit var btnEnter: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         // DatePicker configuration
         tvDate = findViewById(R.id.tvDate)
+        btnEnter = findViewById(R.id.btnEnter)
+
         tvDate.setOnClickListener { datePicker() }
+
+        btnEnter.setOnClickListener { navigateToTime() }
     }
 
     private fun datePicker() {
@@ -33,5 +40,10 @@ class MainActivity : AppCompatActivity() {
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, myear, mmonth, mday ->
             tvDate.text = "$mday/${mmonth + 1}/$myear"
         }, year, month, day).show()
+    }
+
+    private fun navigateToTime() {
+        val intent = Intent(this, TimeActivity::class.java)
+        startActivity(intent)
     }
 }
